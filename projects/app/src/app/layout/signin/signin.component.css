@@ -1,0 +1,63 @@
+:host {
+  display: block;
+  min-height: 100vh;
+}
+
+/* Page entrance — runs once on load */
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-48px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Card slides out to the right — behind the chevron */
+@keyframes slideOutRight {
+  from { opacity: 1; transform: translateX(0) scale(1); }
+  to   { opacity: 0; transform: translateX(100%) scale(0.92); }
+}
+
+/* Card slides in from the left */
+@keyframes slideInFromLeft {
+  from { opacity: 0; transform: translateX(-100%) scale(0.92); }
+  to   { opacity: 1; transform: translateX(0) scale(1); }
+}
+
+/* Chevron idle bounce — draws attention */
+@keyframes chevronBounce {
+  0%,  100% { transform: translateY(-50%) translateX(0);     }
+  30%        { transform: translateY(-50%) translateX(5px);  }
+  60%        { transform: translateY(-50%) translateX(-3px); }
+  80%        { transform: translateY(-50%) translateX(3px);  }
+}
+
+.card-enter {
+  animation: slideInLeft 0.5s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+.card-slide-out {
+  animation: slideOutRight 0.35s cubic-bezier(0.4, 0, 1, 1) forwards;
+  pointer-events: none;
+}
+
+.card-slide-in {
+  animation: slideInFromLeft 0.38s cubic-bezier(0, 0, 0.2, 1) forwards;
+}
+
+/* No animation class = card is resting, no flicker */
+.card-rest {
+  opacity: 1;
+  transform: translateX(0) scale(1);
+}
+
+.chevron-bounce {
+  animation: chevronBounce 1.6s ease-in-out infinite;
+  animation-delay: 1.2s;
+}
+
+.hero-enter {
+  animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.15s both;
+}

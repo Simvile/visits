@@ -6,7 +6,11 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "api:fetch": "curl -o openapi.json http://localhost:5170/openapi/v1.json",
+    "api:generate": "npm run api:fetch && npx @openapitools/openapi-generator-cli generate -i openapi.json -g typescript-angular -o projects/lib/src/lib/api/generated --skip-validate-spec",
+    "api:clean": "rm -rf projects/lib/src/lib/api/generated",
+    "api:rebuild": "npm run api:clean && npm run api:generate"
   },
   "private": true,
   "packageManager": "npm@11.6.2",
@@ -17,6 +21,7 @@
     "@angular/forms": "^21.2.0",
     "@angular/platform-browser": "^21.2.0",
     "@angular/router": "^21.2.0",
+    "jwt-decode": "^4.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"
   },
@@ -24,6 +29,8 @@
     "@angular/build": "^21.2.8",
     "@angular/cli": "^21.2.8",
     "@angular/compiler-cli": "^21.2.0",
+    "@openapitools/openapi-generator-cli": "^2.32.0",
+    "@steveadoo/ng-openapi-gen": "^1.0.5",
     "@tailwindcss/postcss": "^4.1.12",
     "jsdom": "^28.0.0",
     "ng-packagr": "^21.2.0",
