@@ -1,0 +1,11 @@
+{
+  "$schema": "node_modules/@steveadoo/ng-openapi-gen/ng-openapi-gen-schema.json",
+  "input": "openapi.json",
+  "output": "src/app/api/generated",
+  "ignoreUnusedModels": false,
+  "enumStyle": "alias",
+  "promises": false,
+  "services": true,
+  "serviceSuffix": "Service",
+  "modelSuffix": ""
+}
