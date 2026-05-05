@@ -1,0 +1,11 @@
+export * from './address.service';
+import { AddressService } from './address.service';
+export * from './auth.service';
+import { AuthService } from './auth.service';
+export * from './classificationValue.service';
+import { ClassificationValueService } from './classificationValue.service';
+export * from './institution.service';
+import { InstitutionService } from './institution.service';
+export * from './user.service';
+import { UserService } from './user.service';
+export const APIS = [AddressService, AuthService, ClassificationValueService, InstitutionService, UserService];

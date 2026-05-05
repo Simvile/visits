@@ -1,3 +1,36 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import 'tailwindcss';
+
+@layer base {
+    textarea, input:not([type="radio"]):not([type="checkbox"]) {
+        @apply w-full outline-none px-10 py-2 rounded-md !border-[0.5px] border-gray-200 text-sm text-gray-700 cursor-pointer active:border-[0.5px] active:!border-black transition-all !duration-400 ease-in-out !tracking-wide font-light !text-[11px] placeholder-gray-400 bg-gray-50;
+    }
+
+    button[type="submit"] {
+        @apply w-full outline-none rounded-lg px-4 p-1.5 flex justify-center items-center !border-[0.5px] cursor-pointer border-[var(--border)] bg-[var(--border)] mt-2 !transition-all !duration-300 ease-in-out !transform active:scale-99 active:border-[0.5px] active:!border-[var(--primary)] !text-[11px] !tracking-wide font-light;
+        
+    }
+
+    /* button:not(.ql-toolbar *):not(.ql-picker *) {
+        @apply w-full outline-none rounded-lg px-4 p-1.5 flex justify-between items-center !border-[0.5px] border-[var(--border)] bg-[var(--border)] mt-2 shadow-md !transition-all !duration-300 ease-in-out !transform active:scale-99 active:border-[0.5px] active:!border-[var(--primary)] !text-[11px] !tracking-wide font-light;
+        
+    } */
+
+    div, p, h1, h2, h3, h4, h5, span {
+        @apply !font-light !tracking-wide;
+    }
+
+    hr { @apply my-2; }
+
+    input[type="number"] { @apply appearance-none; }
+
+    input[type="checkbox"] {
+        @apply w-[13px] h-[13px] flex-shrink-0 cursor-pointer;
+        accent-color: black;
+    }
+
+    #tree {
+    @apply bg-[var(--card)] border border-[var(--border)] rounded-[var(--radius)] p-3 flex flex-col gap-0 min-w-[260px];
+    }
+}
