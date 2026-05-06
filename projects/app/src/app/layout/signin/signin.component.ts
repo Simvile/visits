@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { form, required, FormField } from '@angular/forms/signals';
+import { Router } from '@angular/router';
 import { IconsComponent, ShellService } from 'lib';
 
 type CardState = 'enter' | 'rest' | 'slide-out' | 'slide-in';
@@ -17,10 +18,14 @@ interface SignInModel {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SigninComponent {
+  private readonly router    = inject(Router);
   protected readonly authService = inject(ShellService);
   
   isStaff = signal(false);
   cardState = signal<CardState>('enter');
+  isLoading = signal(false);
+  errorMsg  = signal<string | null>(null);
+
   readonly passwordDisplay = signal<'text'|'password'>('password');
  
   cardClass = computed(() => {
@@ -55,27 +60,20 @@ export class SigninComponent {
     }, 350);
   }
  
-  onSignIn() {
-    // Prevent any default behavior
+  onSignIn(event?: Event) {
     event?.preventDefault();
-    
-    if (!this.signInForm().valid()) {
-      console.log('Form is invalid');
-      return;
-    }
-    
-    const value = this.signInForm().value();
-    console.log('Attempting sign in with:', value);
-    
-    this.authService.signIn(value).subscribe({
-      next: (res) => {
-        console.log('Sign in successful!', res);
-        // Handle success - navigate to dashboard, store tokens, etc.
-      },
+ 
+    if (!this.signInForm().valid()) return;
+ 
+    this.isLoading.set(true);
+    this.errorMsg.set(null);
+ 
+    this.authService.signIn(this.signInForm().value()).subscribe({
+      next: () => this.router.navigate(['/home']),
       error: (err) => {
-        console.error('Sign in failed:', err);
-        // Show error message to user
-      }
+        this.isLoading.set(false);
+        this.errorMsg.set(err?.error?.message ?? 'Sign in failed. Please try again.');
+      },
     });
   }
  

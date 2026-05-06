@@ -1,0 +1,51 @@
+<div class="flex flex-col gap-6">
+
+  <!-- Spotlight card -->
+  <div class="bg-gray-100 p-5 border border-gray-200">
+    <h2 class="text-2xl font-black tracking-tight mb-3">
+      <span class="text-gray-900">Article</span><span class="text-[#1E26B7]">FlowX</span>
+    </h2>
+    <p class="text-sm font-semibold text-gray-800 leading-snug mb-1">
+      {{ spotlight.title }}
+    </p>
+    <div class="flex items-center justify-between mt-3">
+      <p class="text-xs text-gray-500">By {{ spotlight.author }}</p>
+      <a [href]="spotlight.url"
+         class="text-xs text-[#1E26B7] hover:underline font-medium transition">
+        read more...
+      </a>
+    </div>
+  </div>
+
+  <!-- Featured Posts -->
+  <div>
+    <h3 class="text-lg font-bold text-gray-900 mb-2">Featured Posts</h3>
+
+    <div class="flex flex-col divide-y divide-gray-100">
+      @for (post of featuredPosts; track post.id) {
+        <div class="flex gap-3 py-4 group cursor-pointer">
+
+          <!-- Thumbnail -->
+          <div class="w-20 h-20 rounded-xl overflow-hidden flex-shrink-0 bg-gray-100">
+            <img [src]="post.image" [alt]="post.title"
+                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"/>
+          </div>
+
+          <!-- Text -->
+          <div class="flex-1 min-w-0">
+            <p class="text-xs font-semibold text-gray-500">
+              By <span class="text-[#1E26B7]">{{ post.author }}</span>
+            </p>
+            <p class="text-[11px] text-gray-400 mb-1">{{ post.date }}</p>
+            <p class="text-sm font-semibold text-gray-800 leading-snug
+                       group-hover:text-[#1E26B7] transition-colors duration-200 line-clamp-3">
+              {{ post.title }}
+            </p>
+          </div>
+
+        </div>
+      }
+    </div>
+  </div>
+
+</div>

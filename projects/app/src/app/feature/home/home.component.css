@@ -1,0 +1,55 @@
+:host {
+  display: block;
+}
+
+/* Navbar base — transparent over light bg */
+nav {
+  background: transparent;
+}
+
+/* Scrolled — dark navy */
+nav.nav-scrolled {
+  background: rgba(30, 38, 183, 1);
+  backdrop-filter: blur(12px);
+  /*border-bottom: 1px solid rgba(255, 255, 255, 0.06);*/
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+}
+
+/* Text colours before scroll */
+nav:not(.nav-scrolled) a,
+nav:not(.nav-scrolled) span,
+nav:not(.nav-scrolled) button {
+  color: rgba(30, 30, 30, 0.75);
+}
+
+nav:not(.nav-scrolled) a:hover {
+  color: rgba(30, 30, 30, 1);
+}
+
+/* Logo blue before scroll */
+nav:not(.nav-scrolled) .font-bold {
+  color: #1E26B7;
+}
+
+/* Text colours after scroll — everything white */
+nav.nav-scrolled a,
+nav.nav-scrolled span,
+nav.nav-scrolled button,
+nav.nav-scrolled .font-medium {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+nav.nav-scrolled a:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+nav.nav-scrolled .font-bold {
+  color: #ffffff;
+}
+
+/* Mobile menu dropdown always light bg regardless of scroll */
+nav .md\:hidden.bg-white a,
+nav .md\:hidden.bg-white div {
+  color: #374151 !important;
+}
