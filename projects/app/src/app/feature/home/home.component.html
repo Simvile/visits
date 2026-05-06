@@ -1,0 +1,144 @@
+<!-- Navbar -->
+<nav class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+     [class.nav-scrolled]="isScrolled()">
+  <div class="max-w-7xl mx-auto px-4 md:px-6 py-4 flex items-center justify-between">
+
+    <!-- Logo -->
+    <a routerLink="/" class="font-bold text-lg tracking-tight flex-shrink-0">
+      Residentia
+    </a>
+
+    <!-- Desktop nav links -->
+    <div class="hidden md:flex items-center gap-1 text-sm">
+      <a routerLink="/home"
+         class="px-3 py-2 rounded-lg hover:bg-black/5 transition-all duration-200">Home</a>
+      <span class="opacity-30">|</span>
+      <a routerLink="/visits"
+         class="px-3 py-2 rounded-lg hover:bg-black/5 transition-all duration-200">Visits</a>
+      <span class="opacity-30">|</span>
+      <a routerLink="/marketplace"
+         class="px-3 py-2 rounded-lg hover:bg-black/5 transition-all duration-200">Become a Seller</a>
+      <span class="opacity-30">|</span>
+      <a routerLink="/newsletter"
+         class="px-3 py-2 rounded-lg hover:bg-black/5 transition-all duration-200">Newsletter</a>
+      <span class="opacity-30">|</span>
+      <a routerLink="/about"
+         class="px-3 py-2 rounded-lg hover:bg-black/5 transition-all duration-200">More about Us</a>
+    </div>
+
+    <!-- Desktop: user greeting -->
+    <div class="hidden md:block text-sm font-medium text-gray-700 flex-shrink-0">
+      Hi {{ userName() }}
+    </div>
+
+    <!-- Mobile: hamburger -->
+    <button
+      class="md:hidden p-2 rounded-lg hover:bg-black/5 transition"
+      (click)="toggleMenu()"
+      aria-label="Toggle menu"
+    >
+      @if (menuOpen()) {
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      } @else {
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      }
+    </button>
+
+  </div>
+
+  <!-- Mobile dropdown menu -->
+  @if (menuOpen()) {
+    <div class="md:hidden bg-white border-t border-gray-100 shadow-lg px-4 py-3 flex flex-col gap-1">
+      <div class="text-sm font-medium text-gray-500 px-3 py-1 mb-1">
+        Hi {{ userName() }}
+      </div>
+      <a routerLink="/home"    (click)="toggleMenu()"
+         class="px-3 py-2.5 rounded-lg text-sm text-gray-700 hover:bg-gray-50 transition">Home</a>
+      <a routerLink="/visits"  (click)="toggleMenu()"
+         class="px-3 py-2.5 rounded-lg text-sm text-gray-700 hover:bg-gray-50 transition">Visits</a>
+      <a routerLink="/marketplace" (click)="toggleMenu()"
+         class="px-3 py-2.5 rounded-lg text-sm text-gray-700 hover:bg-gray-50 transition">Become a Seller</a>
+      <a routerLink="/newsletter" (click)="toggleMenu()"
+         class="px-3 py-2.5 rounded-lg text-sm text-gray-700 hover:bg-gray-50 transition">Newsletter</a>
+      <a routerLink="/about"   (click)="toggleMenu()"
+         class="px-3 py-2.5 rounded-lg text-sm text-gray-700 hover:bg-gray-50 transition">More about Us</a>
+    </div>
+  }
+</nav>
+
+<!-- Page body -->
+<div class="bg-white min-h-screen pt-20 px-4 md:px-6 pb-10">
+  <div class="max-w-7xl mx-auto">
+
+    <!-- Desktop: two-column | Mobile: single column stacked -->
+    <div class="flex flex-col lg:flex-row gap-6 items-start">
+
+      <!-- LEFT column: hero + marketplace -->
+      <div class="w-full lg:flex-1 flex flex-col gap-5 min-w-0">
+
+        <!-- Hero card -->
+        <div class="relative rounded-2xl overflow-hidden h-64 sm:h-80 lg:h-[380px] shadow-md">
+          <img
+            src="images/hero-bg.png"
+            alt="Featured article"
+            class="w-full h-full object-cover object-center"
+          />
+          <div class="absolute inset-0"
+               style="background: linear-gradient(to top, rgba(13,17,23,0.88) 0%, rgba(13,17,23,0.5) 50%, rgba(13,17,23,0.1) 100%)">
+          </div>
+          <div class="absolute bottom-0 left-0 right-0 px-5 md:px-7 pb-5 md:pb-7">
+            <p class="text-white/70 text-xs md:text-sm mb-1 md:mb-2">
+              By {{ featuredPost.author }}. {{ featuredPost.date }}
+            </p>
+            <h1 class="text-white text-base md:text-xl font-bold leading-snug mb-1 md:mb-2">
+              {{ featuredPost.title }}
+            </h1>
+            <p class="text-white/70 text-xs md:text-sm leading-relaxed hidden sm:block">
+              {{ featuredPost.subtitle }}
+            </p>
+          </div>
+        </div>
+
+        <!-- Marketplace grid: 2 cols mobile → 4 cols desktop -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+          @for (item of marketplaceItems; track item.id) {
+            <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden
+                        hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 cursor-pointer">
+              <div class="h-28 sm:h-36 overflow-hidden bg-gray-100">
+                <img [src]="item.image" [alt]="item.name"
+                     class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"/>
+              </div>
+              <div class="p-2.5 md:p-3">
+                <p class="text-[10px] md:text-[11px] text-gray-400 mb-0.5">{{ item.category }}</p>
+                <p class="text-xs md:text-sm font-semibold text-gray-800 leading-snug mb-1">{{ item.name }}</p>
+                <p class="text-xs md:text-sm font-bold text-gray-900">{{ item.price }}</p>
+              </div>
+            </div>
+          }
+        </div>
+
+        <!-- View more -->
+        <div class="text-center">
+          <a routerLink="/marketplace"
+             class="text-sm text-[#1E26B7] hover:underline font-medium transition">
+            View more items
+          </a>
+        </div>
+
+      </div>
+
+      <!-- RIGHT column: ArticleFlowX — full width on mobile, fixed sidebar on desktop -->
+      <div class="w-full lg:w-80 lg:flex-shrink-0">
+        <app-article-flow-x />
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Blue accent bar at the bottom -->
+<div class="fixed bottom-0 left-0 right-0 h-[2px] bg-[#1E26B7] z-50"></div>
